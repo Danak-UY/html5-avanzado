@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dataset HTMl5</title>
+</head>
+<body>
+	<div id='elemento' data-a="ejemplo"></div>
+	<div data-a="ejemplo"></div>
+	<script>
+		window.addEventListener('load',init);
+		function init(){
+			var elementos_data_a = document.querySelectorAll('[data-a]');
+			var el = document.getElementById('elemento');
+			el.dataset.a = "nuevo ejemplo";
+			console.log(el.dataset.a);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+html,body{
+	height: 100%;
+	font-family: 'Arial';
+}
+body{
+	background-color: #f7f7f7;
+	padding-top: 1em;
+}
+h1{
+	text-align: center;
+	letter-spacing: 7px;
+	color: blue;
+	font-size: 2.5em;
+	font-weight: bolder;
+}
+#main{
+	text-align: center;
+}
+.source,.container{
+	position: relative;
+	height: 300px;
+	width: 40%;
+	display: inline-block;
+	border: solid 1px;
+	background-color: #f7f7f7;
+	vertical-align: top;
+	transition:all 0.4s;
+}
+.container{
+	z-index: 100;
+}
+.over{
+	box-shadow:0px 0px 10px 3px rgba(0,0,0,0.4);
+	-webkit-transform: scale(1.1);
+}
+.circle{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	background-color: red;
+	cursor: move;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Classlist API</title>
+	<style>
+		div{
+			height: 200px;
+			width: 200px;
+			background-color: #222;
+			transition: all 0.4s;
+		}
+		.rojo{
+			background-color: rgb(200,50,50);
+			border-radius: 200px;
+		}
+	</style>
+</head>
+<body>
+	<div id="elemento"></div>
+	<script>
+		window.addEventListener('load',init);
+		function init(){
+			var el = document.querySelector('#elemento');
+			el.onclick = function(){
+				el.classList.add('rojo');
+			}
+			
+		}
+	</script>
+</body>
+</html>

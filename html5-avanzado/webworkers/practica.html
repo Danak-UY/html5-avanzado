@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Web workers</title>
+	<style>
+	body{
+		font-family: Arial;
+	}
+	</style>
+	<meta charset='utf-8'>
+</head>
+<body>
+	<h2>Busca los números primos de: </h2>
+	<input type='text' id='numero' placeholder='0'>
+	<button id='buscar'>Buscar</button>
+	<script>
+		window.addEventListener('load',init,false);
+		function init(){
+			document.querySelector('#buscar').addEventListener('click',function(e){
+				var numero = document.querySelector('#numero').value;
+				var primosDe = buscarPrimos(numero);
+				console.log(primosDe);
+				/*var worker = new Worker('practica_worker.js');
+				worker.addEventListener('message',function(e){
+					console.log(e.data);
+				});
+				worker.postMessage(numero);*/
+
+			},false);
+		}
+		function buscarPrimos(n){
+			if(n < 2) return [];
+			console.log(n);
+			var primos = [2];
+			for(var i=3;i<=n;i++){
+				var bandera = false;
+				for(var j = 0;j<primos.length;j++){
+					if(i % primos[j] == 0){
+						
+						bandera = true;
+					} 
+				}
+				if(!bandera) primos.push(i);
+			}
+			return primos;
+		}
+	</script>
+</body>
+</html>

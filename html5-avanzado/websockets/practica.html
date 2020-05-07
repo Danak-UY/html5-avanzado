@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Práctica websockets</title>
+	<meta charset='utf-8'>
+</head>
+<body>
+
+	<script>
+		var host  = "ws://localhost:8000/html5-avanzado/websockets/server.php";
+		var socket;
+		
+		socket = new WebSocket(host);
+		socket.addEventListener('open',function(e){
+			console.log(':)');
+			socket.send("Ola ke ase");
+		},false);
+		socket.onmessage = function(msg){ console.log(msg.data) };
+		console.log(socket);
+		
+
+	</script>
+</body>
+</html>	

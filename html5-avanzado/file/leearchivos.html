@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leer archivos File API</title>
+	<meta charset='utf-8'>
+	<style>
+		body{
+			font-family: Arial;
+		}
+		.half{
+			width: 40%;
+			display: inline-block;
+			vertical-align:top;
+		}
+	</style>
+</head>
+<body>
+	<div class='half'>
+		<h1>Leer archivos</h1>
+		<form id='form'>
+			<input type='file' id='archivos'>
+		</form>
+		<section>
+			<h2>Contenido del archivo</h2>
+			<pre id='contenido'></pre>
+		</section>
+	</div>
+	<div class="half">
+		<h2>Información del archivo</h2>
+		<p><strong>Nombre</strong> <span id='nombre'></span></p>
+		<p><strong>Tamaño</strong> <span id='size'></span></p>
+	</div>
+	<script>
+		window.addEventListener('load',init);
+		function init(){
+			var inptData = document.getElementById('archivos');
+			inptData.addEventListener('change',leerArchivos,false);	
+		}
+		function leerArchivos(e){
+			var files = e.target.files;
+			var reader = new FileReader();
+			reader.onload = displayFileInfo;
+			for(var i=0;i<files.length;i++){
+				var file = files[i];
+				document.getElementById('nombre').innerHTML = file.name;
+				document.getElementById('size').innerHTML = file.size;
+				if(file.type.match(/image.*/i)){
+					reader.readAsDataURL(file);	
+					continue;
+				}
+				reader.readAsText(files[i]);
+			}
+		}
+		function displayFileInfo(e){
+			var resultado = e.target.result;
+			var target = document.getElementById('contenido');
+			if(resultado.indexOf(' ') < 1){
+				var imagen = document.createElement('img');
+				imagen.setAttribute('src',resultado);
+				target.appendChild(imagen);
+			}
+			else{
+				target.innerHTML = resultado;	
+			}
+			
+			console.log(e);
+		}
+	</script>
+</body>
+</html>

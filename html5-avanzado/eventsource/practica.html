@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event Souce DEMO</title>
+	<meta charset='utf-8'>
+</head>
+<body>
+	<script>
+	if(!!window.EventSource){
+		var server_listener = new EventSource('server.php');
+		server_listener.addEventListener('evento', function(e) {
+		  console.log(e.data);
+		}, false);
+		
+		server_listener.addEventListener('open', function(e) {
+		  console.log('La conexión se ha establecido :)');
+		}, false);
+
+		server_listener.addEventListener('error', function(e) {
+		  if (e.readyState == EventSource.CLOSED) {
+		    console.log('La conexión se cerró :3');
+		  }
+		}, false);
+		setTimeout(function(){server_listener.close();},10000);
+	}
+	console.log(':3');
+	</script>
+	
+</body>
+</html>

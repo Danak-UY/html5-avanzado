@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>XMLHTTPRequest 2</title>
+	<meta charset='utf-8'>
+</head>
+<body>
+	<!--
+		<body>
+			<input type='text' id='usuario' placeholder='Coloca tu usuario'>
+			<button id='sendData'>Enviar datos</button>
+			<script>
+				window.addEventListener('load',init);
+				function init(){
+					document.querySelector('#sendData').addEventListener('click',sendForm,false);
+				}
+				function sendForm(){
+					var usuario = document.getElementById('usuario').value;
+					var fD = new FormData();
+					fD.append('usuario',usuario);
+					var ajax = new XMLHttpRequest();
+					ajax.open('POST','target.php',true);
+					ajax.responseType = "text";
+					ajax.addEventListener('load',function(e){
+						if(this.status == 200){
+							console.log(this.response);
+						}
+					},false);
+					console.log(fD);
+					ajax.send(fD);
+				}
+			</script>
+			
+		</body>
+	-->
+	<form id='form' action='target.php'>
+		<input type='text' name='usuario' placeholder='Coloca tu username'>
+		<input type='submit' value='Enviar username' id='send'>
+	</form>
+	<script>
+		window.addEventListener('load',init);
+		function init(){
+			document.querySelector('#form').addEventListener('submit',sendForm,false);
+		}
+		function sendForm(e){
+			e.preventDefault();
+			var form = this;
+			var fD = new FormData(form);
+			var ajax = new XMLHttpRequest();
+			ajax.open('POST',form.action,true);
+			ajax.responseType = "text";
+			ajax.addEventListener('load',function(e){
+				if(this.status == 200){
+					console.log(this.response);
+				}
+			},false);
+			ajax.send(fD);
+			return false;
+		}
+	</script>
+	
+</body>
+</html>

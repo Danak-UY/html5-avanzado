@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Geolocalización en HTML5</title>
+	<meta charset='utf-8'>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id="google_canvas"></div>
+	<script src="http://maps.googleapis.com/maps/api/js?&sensor=true"></script>
+	<script>
+		google.maps.event.addDomListener(window,'load',drawMap);
+		var marcador_tiempo_real,mapa;
+		function drawMap(){
+			var opcionesMapa = {
+				zoom: 15,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+			mapa = new google.maps.Map(document.getElementById('google_canvas'),opcionesMapa);
+			navigator.geolocation.getCurrentPosition(function(posicion){
+				var geolocalizacion = new google.maps.LatLng(posicion.coords.latitude, posicion.coords.longitude);
+				var marcador = new google.maps.Marker({
+					map: mapa,
+					draggable: false,
+					position:geolocalizacion,
+					visible: true
+				});
+				marcador_tiempo_real = new google.maps.Marker({
+					map: mapa,
+					position:geolocalizacion
+				});
+				mapa.setCenter(geolocalizacion);
+			},function(error){
+				console.log(error);
+			});
+			navigator.geolocation.watchPosition(actualizarPosicion,function(e){console.log(e)},{maximumAge:0});
+		}
+		function actualizarPosicion(posicion){
+			console.log(posicion);
+			var geolocalizacion = new google.maps.LatLng(posicion.coords.latitude, posicion.coords.longitude);
+			marcador_tiempo_real.setPosition(geolocalizacion);
+			mapa.setCenter(geolocalizacion);
+		}
+	</script>
+</body>
+</html>

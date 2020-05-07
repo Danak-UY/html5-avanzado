@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Video API
+	</title>
+	<style>
+		#container{
+			width: 200px;
+			height: 30px;
+			float: left;
+			position: relative;
+			background-color: #eee;
+		}
+		#porcentaje{
+			width: 50%;
+			height: 100%;
+			top: 0px;
+			left: 0px;
+			position: absolute;
+			background-color: rgb(200,50,50);
+		}
+	</style>
+</head>
+<body>
+	<video width='600' id='video'>
+		<source src='video.mp4' type="video/mp4">
+	</video>
+	<br><br>
+	<button id='play'>></button>
+	<button id='pausa'>||</button>
+	<button id='stop'>stop</button>
+	<div id="container">
+		<div id="porcentaje"></div>
+	</div>
+	<span id='tiempo'></span>
+	<input type='range' id='volumen' min='0' max='1' step='0.1' value='1'>
+	<script>
+		window.addEventListener('load',init);
+		var video,volumen;
+		function init(){
+			video = document.getElementById('video');
+			volumen = document.getElementById('volumen');
+			document.getElementById('play').addEventListener('click',ponerPlay);
+			document.getElementById('pausa').addEventListener('click',ponerPausa);
+			document.getElementById('stop').addEventListener('click',ponerStop);
+			volumen.addEventListener('change',manejarVolumen);
+			video.addEventListener('timeupdate',actualizarTiempo);
+
+			var reconocer = new webkitSpeechRecognition();
+			reconocer.continuous = true;
+			reconocer.interimResults = true;
+			reconocer.lang = "es";
+			reconocer.start();
+			reconocer.onresult = function (event) {
+			    for (var i = event.resultIndex; i < event.results.length; ++i) {
+			        if (event.results[i].isFinal) {
+			        	var valor = event.results[i][0].transcript.replace(/\s/g, "");
+			            if(valor == "reproducir"){
+			            	ponerPlay();
+			            }
+			            if(valor == "pausar"){
+			            	ponerPausa();
+			            }
+			            if(valor == "silenciar"){
+			            	volumen.value = 0;
+			            	manejarVolumen();
+			            }
+			            if(valor == "escuchar"){
+			            	volumen.value = 1;
+			            	manejarVolumen();
+			            }
+			            if(valor == "detener"){
+			            	volumen.value = 1;
+			            	ponerStop();
+			            }
+			            console.log(valor);
+			        }
+
+			    }
+			};
+		}
+		function ponerPlay(){
+			video.play();
+		}
+		function asignarDuracion(){
+			//progreso.max = video.duration;
+			//console.log(video.duration);
+		}
+		function ponerPausa(){
+			video.pause();
+		}
+		function ponerStop(){
+			video.pause();
+			video.currentTime = 0;
+		}
+		function actualizarTiempo(){
+			document.querySelector('#tiempo').innerHTML = video.currentTime;
+			var valor = (video.currentTime * 100) / video.duration;
+			document.querySelector('#porcentaje').style.width = valor+'%';
+
+		}
+		function manejarVolumen(){
+			video.volume = volumen.value;
+		}
+	</script>
+</body>
+</html>

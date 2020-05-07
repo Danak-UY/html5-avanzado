@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Subir archivos con Drag&Drop</title>
+	<meta charset='utf-8'>
+	<style>
+		body{
+			font-family: Arial;
+			background-color: #2F3440;
+			color:#eee;
+			text-align: center;
+		}
+		#box{
+			background-color: #EA6045;
+			width: 60%;
+			margin:0 auto;
+			height: 300px;
+			border: solid 3px #fff;
+		}
+		.progressBar{
+			background-color: #3F5666;
+			width: 60%;
+			margin:0 auto;
+			position: relative;
+			height: 30px;
+		}
+		#progreso{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 0%;
+			height: 30px;
+			background-color: #F8CA4D;
+		}
+	</style>
+</head>
+<body>
+	<h1>Arrastra una imagen a la caja</h1>
+	<div id="box">
+		Suelta aquí tu archivo :)
+	</div>
+	<div class="progressBar">
+		<div id='progreso'></div>
+	</div>
+	<script>
+		window.addEventListener('load',init);
+		function init(){
+			var box = document.getElementById('box');
+			box.addEventListener('dragover',function(e){e.preventDefault();return false;});
+			box.addEventListener('drop',uploadFile);
+			
+		}
+		function uploadFile(e){
+			e.preventDefault();
+			
+			var files = e.dataTransfer.files;
+
+			for(var i = 0;i<files.length;i++){
+				var file = files[i];
+				var fD = new FormData();
+				fD.append('user_file',file);
+				
+				var ajax = new XMLHttpRequest();
+				ajax.open("POST","upload.php",true);
+				ajax.addEventListener('load',function(e){
+					if(this.status == 200){
+						document.querySelector('#box').innerHTML = "Se subió el archivo correctamente :)";
+						console.log(this);
+					}
+					else{
+						document.querySelector('#box').innerHTML = "Error al subir el archivo :(";	
+					}
+				},false);
+				document.querySelector('#box').innerHTML = "Subiendo el archivo :|";
+				
+				ajax.upload.addEventListener('progress',function(e){
+					if (e.lengthComputable) {
+					    document.querySelector('#progreso').style.width = ((e.loaded / e.total) * 100)+'%';
+					}
+				},false);
+				ajax.send(fD);
+			}
+   			return false;
+		}
+	</script>
+</body>
+</html>

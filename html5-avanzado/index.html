@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Curso HTML5 Avanzado</title>
+	<meta charset='utf-8'>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="font-awesome.css">
+	<link href='http://fonts.googleapis.com/css?family=Rationale' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<div class="span4">
+		<div class='naveg_titulo'>
+			<p>
+				<strong>Aquí está la navegación</strong>
+				<i class='icon-caret-down'></i>
+			</p>
+		</div>
+		
+		<nav id='navigation'>
+			<button data-curso='semantica/index.html' draggable='true' class='btn'>
+				Actualización Semántica
+			</button>
+			<button draggable='true' data-curso='formularios/index.html' class='btn'>
+				Formularios
+			</button>
+			<button data-curso='dragdrop/index.html' draggable='true' class='btn'>
+				Drag & Drop
+			</button>
+			<button data-curso='geolocalizacion/index.html' draggable='true' class='btn'>
+				Geolocalización
+			</button>
+			<button data-curso='localstorage/index.html' draggable='true' class='btn'>
+				LocalStorage
+			</button>
+			<button data-curso='dataset/index.html' draggable='true' class='btn'>
+				Dataset
+			</button>
+			<button data-curso='video/index.html' draggable='true' class='btn'>
+				Video API
+			</button>
+			<button data-curso='web_speech/index.html' draggable='true' class='btn'>
+				Web Speech
+			</button>
+			<button data-curso='history/index.html' draggable='true' class='btn'>
+				History API
+			</button>
+			<button data-curso='usermedia/index.html' draggable='true' class='btn'>
+				Cámara y micrófono
+			</button>
+			<button data-curso='classlist/index.html' draggable='true' class='btn'>
+				Class List
+			</button>
+			<button data-curso='canvas/index.html' draggable='true' class='btn'>
+				Canvas Básico
+			</button>
+			<button data-curso='raf/index.html' draggable='true' class='btn'>
+				Request Animation Frame
+			</button>
+			<button data-curso='canvas/imagenes.html' draggable='true' class='btn'>
+				Canvas Imágenes
+			</button>
+			<button data-curso='notifications/index.html' class='btn' draggable='true'>
+				Notificaciones
+			</button>
+			<button data-curso='pagevisibility/index.html' class='btn' draggable='true'>
+				Page Visibility
+			</button>
+			<button data-curso='file/leearchivos.html' class='btn' draggable='true'>
+				Leer Archivos
+			</button>
+			<button data-curso='blobs/index.html' class='btn' draggable='true'>
+				Archivos BLOB
+			</button>
+			<button data-curso='xhr2/index.html' class='btn' draggable='true'>
+				XMLHttpRequest 2 (AJAX)
+			</button>
+			<button data-curso='xhr2/uploader.html' class='btn' draggable='true'>
+				Subir Archivos
+			</button>
+			<button data-curso='websockets/index.html' class='btn' draggable='true'>
+				Web Sockets
+			</button>
+			<button data-curso='webworkers/index.html' class='btn' draggable='true'>
+				Web Workers
+			</button>
+			<button data-curso='eventsource/index.html' class='btn' draggable='true'>
+				Event Source
+			</button>
+		</nav>
+		<div id="navigateTo" class='navigate'>Arrastra aquí un elemento de la navegación</div>
+	</div>
+	<div class="span5">
+		<h1>Curso de <i class='icon-html5 orange'></i> Avanzado</h1>
+		<div id="mainContainer">
+			
+			<video id='video'>
+				<source src='video.mp4' type="video/mp4">
+			</video>
+			<div id="container">
+				<span id='tiempo'></span>
+				<div id="porcentaje">
+					
+				</div>
+				<div class="botones">
+					<button id='play' class='media'>
+						<i class='icon-play'></i>
+					</button>
+					<button id='pausa' class='media'>
+						<i class='icon-pause'></i>
+					</button>
+					<button id='stop' class='media'>
+					<i class='icon-stop'></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src='script.js'></script>
+</body>
+</html>

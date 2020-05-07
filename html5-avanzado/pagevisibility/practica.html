@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Visibility API</title>
+	<meta charset='utf-8'>
+</head>
+<body>
+	<button id='activar_notificacion'>Activar notificaciones</button>
+	<script>
+		var array_prefix = getHidden();
+		var notificacion;
+		var hidden = array_prefix[0], visibilitychange = array_prefix[1];
+		console.log(getHidden());
+		window.addEventListener('load',init);
+		function init(){
+			
+			document.querySelector('#activar_notificacion').addEventListener('click',function(){
+				if(window.webkitNotifications.checkPermission() != 0) window.webkitNotifications.requestPermission();
+			},false);
+
+			document.addEventListener(visibilitychange,manejador,false);
+
+		}
+		function manejador(){
+			if(document[hidden]){
+				createNotification();
+				return;
+			}
+			notificacion.cancel();
+		}
+		function createNotification(){
+			notificacion = window.webkitNotifications.createNotification("","Come back!","Te extrañamos en la página :(");
+			notificacion.show();
+		}
+		function getHidden(){
+			var prefijos = ["webkit","moz","ms"];
+			if("hidden" in document) return ["hidden","visibilitychange"];
+			for(i in prefijos){
+				var prefijo = prefijos[i];
+				var opc = prefijo+"Hidden";
+				var opc_vis = prefijo+"visibilitychange";
+				if(opc in document) return [opc,opc_vis];
+			}
+			return null;
+		}
+	</script>
+</body>
+</html>

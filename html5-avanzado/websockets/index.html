@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Websockets</title>
+</head>
+<body>
+	<input type="text" id='mensaje' placeholder='Escribe tu mensaje'>
+	<button id='enviar_mensaje'>Enviar mensaje</button>
+	<script>
+		var host = "ws://localhost:8000/html5-avanzado/Websockets/server.php";
+		var socket;		
+		window.addEventListener('load',init,false);
+		function init(){
+			socket = new WebSocket(host);
+
+			socket.addEventListener('open',function(e){
+				console.log("Se inicio la comunicacion con el servidor");
+				document.querySelector('#enviar_mensaje').addEventListener('click',function(){
+					socket.send(document.getElementById('mensaje').value);
+				},false);
+			},false);
+
+			socket.addEventListener('message',function(msg){
+				console.log(msg.data);
+			},false);
+		}
+	</script>
+</body>
+</html>

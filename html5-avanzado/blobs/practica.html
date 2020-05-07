@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BLOB's</title>
+	<meta charset='utf-8'>
+</head>
+<body>
+	<label>
+		Selecciona un archivo:
+	</label>
+	<input type='file' id='archivo'>
+<script>
+	window.addEventListener('load',init);
+	function init(){
+		var inptFile = document.getElementById('archivo');
+		inptFile.addEventListener('change',crearBlob,false);
+	}
+	function crearBlob(e){
+		var archivos = e.target.files;
+		for(var i =0;i<archivos.length;i++){
+			var archivo = archivos[i];
+			var fr = new FileReader();
+			fr.addEventListener('load',function(){display(e,archivo)},false);
+			var blob = archivo.slice(0,1000);
+			fr.readAsBinaryString(blob);
+		}
+		function display(e,arch){
+			console.log(arch);
+		}
+	}
+</script>
+</body>
+</html>

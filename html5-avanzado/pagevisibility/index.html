@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Visibility API</title>
+	<meta charset='utf-8'>
+</head>
+<body>
+	<button id='activar_notificacion'>Activar notificaciones</button>
+	<script>
+		var notificacion;
+		var arreglo_prefijos = getHidden();
+		if(arreglo_prefijos){
+			var hidden = arreglo_prefijos[0], visibilitychange = arreglo_prefijos[1];
+		}
+		else{
+			alert("Tu navegador no soporta funcionalidades de esta página :(");
+		}
+		window.addEventListener('load',init);
+		function init(){
+			document.querySelector('#activar_notificacion').addEventListener('click',function(){
+				if(window.webkitNotifications.checkPermission() != 0) window.webkitNotifications.requestPermission();
+			},false);
+
+			document.addEventListener(visibilitychange,manejadorVisibilidad,false);
+		}
+		function manejadorVisibilidad(){
+			if(document[hidden]){
+				createNotification();
+				return;
+			}
+			notificacion.cancel();	
+			
+		}
+		function createNotification(){
+			notificacion = window.webkitNotifications.createNotification("","Come back!","Te extrañamos en la página :(");
+			notificacion.show();
+		}
+		function getHidden(){
+			var prefijos = ["webkit","moz","ms"];
+			if("hidden" in document) return ["hidden","visibilitychange"];
+			for(i in prefijos){
+				var prefijo = prefijos[i];
+				var opcion = prefijo+"Hidden";
+				var opcion_unloaded = prefijo+"Unloaded";
+				var opcion_vs = prefijo+"visibilitychange";
+				if(opcion in document) return [opcion,opcion_vs];
+			}
+			return null;
+		}
+	</script>
+</body>
+</html>
